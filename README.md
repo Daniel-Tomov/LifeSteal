@@ -1,6 +1,8 @@
 # LifeSteal
 Made based off a plugin request on the Bukkit Forums https://bukkit.org/threads/lifesteal-plugin-skript.494790/
 
+Made for Minecraft version 1.18. Not tested with other versions
+
 # Commands
 /lifesteal add <player name> - adds a respawn to a player
 
