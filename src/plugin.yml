@@ -1,0 +1,8 @@
+name: LifeSteal
+version: 1.0
+main: me.cageydinosaur.lifesteal.Main
+api-version: 1.18
+commands:
+  lifesteal:
+    usage: /lifesteal
+    description: Command for seeing other commands for plugin

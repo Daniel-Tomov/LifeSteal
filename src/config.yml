@@ -1,0 +1,11 @@
+#Crafting Recipe
+TopLeft: DIAMOND_BLOCK
+TopMiddle: NETHERITE_BLOCK
+TopRight: DIAMOND_BLOCK
+MiddleLeft: GOLD_BLOCK
+MiddleMiddle: TOTEM_OF_UNDYING
+MiddleRight: GOLD_BLOCK
+BottomLeft: DIAMOND_BLOCK
+BottomMiddle: ELYTRA
+BottomRight: DIAMOND_BLOCK
+
