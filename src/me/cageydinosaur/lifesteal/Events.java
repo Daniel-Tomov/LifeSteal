@@ -56,7 +56,7 @@ public class Events implements Listener {
 					+ ChatColor.GREEN + " hearts");
 
 			lifeAmt = plugin.getPlayerLives(recievingPlayer);
-			if (lifeAmt == 1) {
+			if (lifeAmt < 1) {
 				return;
 			} else {
 				lifeAmt = (lifeAmt - 1);
@@ -79,7 +79,7 @@ public class Events implements Listener {
 					int lifeAmt = (plugin.getPlayerLives(eater) + 1);
 					plugin.removeInfo(eater);
 					plugin.addInfo(eater, lifeAmt);
-					eater.setMaxHealth(lifeAmt);
+					eater.setMaxHealth(lifeAmt * 2);
 				}
 			} else {
 				eater.sendMessage(ChatColor.RED + "You do not have permission to eat hearts");

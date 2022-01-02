@@ -25,8 +25,8 @@ public class Cmd implements CommandExecutor {
 				sender.sendMessage(ChatColor.GREEN + "Usage:");
 				if (sender.hasPermission("lifesteal.add"))
 					sender.sendMessage(ChatColor.GREEN + "/lifesteal add <player> - gives player 1 heart");
-				if (sender.hasPermission("lifesteal.take"))
-					sender.sendMessage(ChatColor.GREEN + "/lifesteal take <player> - takes one heart from player");
+				if (sender.hasPermission("lifesteal.remove"))
+					sender.sendMessage(ChatColor.GREEN + "/lifesteal remove <player> - takes one heart from player");
 				if (!(sender.hasPermission("lifesteal.take")) && !(sender.hasPermission("lifesteal.add"))) {
 				}
 				return true;
@@ -41,13 +41,13 @@ public class Cmd implements CommandExecutor {
 					sender.sendMessage("Reloaded the config");
 					return true;
 
-				}else if (args[0].equalsIgnoreCase("rl")) {
+				} else if (args[0].equalsIgnoreCase("rl")) {
 					if (!sender.hasPermission("lifesteal.reloadlives")) {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to use that!");
 						return true;
 					}
 					plugin.addLivesToList();
-					
+
 					sender.sendMessage("Added respawns to list");
 					return true;
 
@@ -56,8 +56,8 @@ public class Cmd implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to use that!");
 						return true;
 					}
-					plugin.addLivesToConfig();					
-					sender.sendMessage("Added respawns to config");
+					plugin.addLivesToConfig();
+					sender.sendMessage("Added respawns to respawns.yml");
 					return true;
 
 				} else if (args[0].equalsIgnoreCase("add")) {
@@ -74,13 +74,13 @@ public class Cmd implements CommandExecutor {
 							sender.sendMessage(ChatColor.RED + "That player is not online");
 							return true;
 						}
-						
+
 						int lifeAmt = (plugin.getPlayerLives(recievingPlayer) + 1);
 						plugin.removeInfo(recievingPlayer);
 						plugin.addInfo(recievingPlayer, lifeAmt);
 						recievingPlayer.setMaxHealth(lifeAmt * 2);
-						sender.sendMessage(ChatColor.RED + recievingPlayer.getDisplayName() + ChatColor.GREEN + " now has " + ChatColor.RED
-								+ lifeAmt + ChatColor.GREEN + " hearts");
+						sender.sendMessage(ChatColor.RED + recievingPlayer.getDisplayName() + ChatColor.GREEN
+								+ " now has " + ChatColor.RED + lifeAmt + ChatColor.GREEN + " hearts");
 
 						return true;
 					}
@@ -99,18 +99,21 @@ public class Cmd implements CommandExecutor {
 							sender.sendMessage(ChatColor.RED + "That player is not online");
 							return true;
 						}
-						
-						int lifeAmt = (plugin.getPlayerLives(recievingPlayer) - 1);
-						if (lifeAmt == 2) {
-							sender.sendMessage(ChatColor.GREEN + "That player already has the minimum amount of hearts");
-						}
-						plugin.removeInfo(recievingPlayer);
-						plugin.addInfo(recievingPlayer, lifeAmt);
-						recievingPlayer.setMaxHealth(lifeAmt * 2);
-						sender.sendMessage(ChatColor.RED + recievingPlayer.getDisplayName() + ChatColor.GREEN + " now has " + ChatColor.RED
-								+ lifeAmt + ChatColor.GREEN + " hearts");
 
-						return true;
+						int lifeAmt = (plugin.getPlayerLives(recievingPlayer));
+						if (lifeAmt == 1) {
+							sender.sendMessage(
+									ChatColor.GREEN + "That player already has the minimum amount of hearts");
+						} else {
+							lifeAmt = (plugin.getPlayerLives(recievingPlayer) - 1);
+							plugin.removeInfo(recievingPlayer);
+							plugin.addInfo(recievingPlayer, lifeAmt);
+							recievingPlayer.setMaxHealth(lifeAmt * 2);
+							sender.sendMessage(ChatColor.RED + recievingPlayer.getDisplayName() + ChatColor.GREEN
+									+ " now has " + ChatColor.RED + lifeAmt + ChatColor.GREEN + " hearts");
+
+							return true;
+						}
 					}
 
 				}
