@@ -23,10 +23,9 @@ public class Events implements Listener {
 		if (!(plugin.ifLives(joiner))) {
 			plugin.addInfo(joiner, 10);
 			joiner.sendMessage(ChatColor.GREEN + "You have " + ChatColor.RED + "10" + ChatColor.GREEN
-					+ " hearts. If you die you will " + ChatColor.RED + "lose one" + ChatColor.GREEN
-					+ " heart. If you " + ChatColor.RED + "kill" + ChatColor.GREEN + " other players, you will "
-					+ ChatColor.RED + "gain one" + ChatColor.GREEN
-					+ " heart. Have fun playing!");
+					+ " hearts. If you die you will " + ChatColor.RED + "lose one" + ChatColor.GREEN + " heart. If you "
+					+ ChatColor.RED + "kill" + ChatColor.GREEN + " other players, you will " + ChatColor.RED
+					+ "gain one" + ChatColor.GREEN + " heart. Have fun playing!");
 		} else {
 			joiner.setMaxHealth(plugin.getPlayerLives(joiner) * 2);
 		}
@@ -70,19 +69,21 @@ public class Events implements Listener {
 		}
 
 	}
+
 	@EventHandler
 	public void onEat(PlayerItemConsumeEvent e) {
 		Player eater = e.getPlayer();
-		if (eater.hasPermission("lifesteal.use")) {
-			if (e.getItem().getItemMeta().hasCustomModelData()) {
-				if (e.getItem().getItemMeta().getCustomModelData() == 6789) {
+		if (e.getItem().getItemMeta().hasCustomModelData()) {
+			if (e.getItem().getItemMeta().getCustomModelData() == 6789) {
+				if (eater.hasPermission("lifesteal.use")) {
 					int lifeAmt = (plugin.getPlayerLives(eater) + 1);
 					plugin.removeInfo(eater);
 					plugin.addInfo(eater, lifeAmt);
 					eater.setMaxHealth(lifeAmt * 2);
+				} else {
+					eater.sendMessage(ChatColor.RED + "You do not have permission to eat hearts");
+					e.setCancelled(true);
 				}
-			} else {
-				eater.sendMessage(ChatColor.RED + "You do not have permission to eat hearts");
 			}
 		}
 	}
