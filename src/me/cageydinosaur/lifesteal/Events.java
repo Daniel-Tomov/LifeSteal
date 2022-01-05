@@ -21,8 +21,9 @@ public class Events implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player joiner = e.getPlayer();
 		if (!(plugin.ifLives(joiner))) {
-			plugin.addInfo(joiner, 10);
-			joiner.sendMessage(ChatColor.GREEN + "You have " + ChatColor.RED + "10" + ChatColor.GREEN
+			int lifeAmt = (int) joiner.getMaxHealth() / 2;
+			plugin.addInfo(joiner, lifeAmt);
+			joiner.sendMessage(ChatColor.GREEN + "You have " + ChatColor.RED + lifeAmt + ChatColor.GREEN
 					+ " hearts. If you die you will " + ChatColor.RED + "lose one" + ChatColor.GREEN + " heart. If you "
 					+ ChatColor.RED + "kill" + ChatColor.GREEN + " other players, you will " + ChatColor.RED
 					+ "gain one" + ChatColor.GREEN + " heart. Have fun playing!");
